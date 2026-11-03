@@ -72,8 +72,9 @@ jobs:
           f=build/files/share
           grep -h '<project_license>' $f/metainfo/${{ matrix.app }}.*xml ||
             { echo "::error::no <project_license> in the metainfo"; exit 1; }
-          find $f/licenses $f/doc \( -iname '*licen[cs]e*' -o -iname 'copying*' \) 2>/dev/null | grep . ||
-            { echo "::error::no licence file in /app/share/licenses or /app/share/doc"; exit 1; }
+          # The app's own licence: a base app's or a module's elsewhere doesn't count.
+          find $f/licenses/${{ matrix.app }} $f/doc -type f \( -iname '*licen[cs]e*' -o -iname 'copying*' \) 2>/dev/null | grep . ||
+            { echo "::error::no licence file in /app/share/licenses/${{ matrix.app }} or /app/share/doc"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
           name: repo-${{ matrix.app }}
