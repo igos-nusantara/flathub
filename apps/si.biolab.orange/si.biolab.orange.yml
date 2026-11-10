@@ -28,7 +28,7 @@ modules:
       build-args:
         - --share=network
     build-commands:
-      - pip3 install --no-cache-dir --prefix=${FLATPAK_DEST} orange3==3.40.0
+      - pip3 install --no-cache-dir --prefix=${FLATPAK_DEST} orange3==3.41.0
       # xgboost pulls the CUDA NCCL library (~200 MB) for multi-GPU training only.
       - rm -rf ${FLATPAK_DEST}/lib/python3*/site-packages/nvidia ${FLATPAK_DEST}/lib/python3*/site-packages/nvidia_nccl*
       - install -Dm644 ${FLATPAK_DEST}/lib/python3*/site-packages/Orange/canvas/icons/orange-256.png ${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/si.biolab.orange.png
